@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="wavestyle.css">        
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 form login-form">
+                <form action="login-user.html" method="POST" autocomplete="off" onsubmit="handleLogin(event)">
+                    <h2 class="text-center" style="color:black;"> User Login </h2>
+                    <p class="text-center" style="color:black;"><b>Login with your email and password.</b></p>
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Email Address" required> 
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
+                    </div>
+                    <div class="link forget-pass text-left"><a href="forgot-password.html"><b>Forgot password?</b></a></div>
+                    <div class="form-group">
+                        <input class="form-control button" type="submit" name="login" value="Login">
+                    </div>
+                    <div class="link login-link text-center" style="color:black;"><b>Not yet a member? </b><a href="signup-user.html"><b>Signup now</b></a></div>
+                    <div id="login-success" class="alert alert-success mt-3 d-none text-center">Login successful! Redirecting...</div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      // Get registered user from localStorage
+      const storedUser = JSON.parse(localStorage.getItem("wasteManagementUser"));
+
+    if (!storedUser) {
+      alert("❌ No registered user found. Please register first.");
+      document.getElementById("password").value = "";
+      document.getElementById("email").value = "";
+      return;
+    }
+
+    if (email === storedUser.email && password === storedUser.password) {
+      alert("✅ Login Successful!");
+      window.location.href = "index.html";
+    } else {
+      alert("❌ Invalid credentials. Try again.");
+      document.getElementById("password").value = "";
+      document.getElementById("email").value = "";
+      return;
+      }
+    }
+    </script>
+</body>
+</html>

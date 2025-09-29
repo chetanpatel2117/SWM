@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Verification</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 form">
+                <form id="otpForm" action="reset-code.html" method="POST" autocomplete="off">
+                    <h2 class="text-center">Code Verification</h2>
+                    <div class="form-group">
+                        <input class="form-control" type="number" name="otp" id="otpInput" placeholder="Enter code" required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control button" type="submit" name="check-reset-otp" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Advanced OTP input validation and UX
+        document.addEventListener('DOMContentLoaded', function() {
+            const otpInput = document.getElementById('otpInput');
+            const otpForm = document.getElementById('otpForm');
+
+            // Allow only numbers, max 6 digits
+            otpInput.setAttribute('maxlength', 6);
+            otpInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);
+            });
+
+            otpForm.addEventListener('submit', function(e) {
+                const otp = otpInput.value.trim();
+
+                // Check for empty input
+                if (!otp) {
+                    alert('Please enter the code.');
+                    otpInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+
+                // Check for length (6 digits)
+                if (otp.length !== 6) {
+                    alert('The code must be 6 digits.');
+                    otpInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+
+                // Optional: Add more checks (e.g., not all same digits)
+                if (/^(\d)\1+$/.test(otp)) {
+                    alert('Invalid code: cannot be all the same digit.');
+                    otpInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+            });
+        });
+    </script>
+    <style>
+@media (max-width: 576px) {
+    .container {
+        padding: 0 10px;
+    }
+    .col-md-4.offset-md-4.form {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0;
+    }
+    h2.text-center {
+        font-size: 1.5rem;
+    }
+    .form-group input {
+        font-size: 1rem;
+    }
+}
+
+    </style>
+</body>
+</html>

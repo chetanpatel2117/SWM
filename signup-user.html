@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 form">
+                <form action="#" method="POST" autocomplete="off" onsubmit="handleRegister(event)">
+                    <h2 class="text-center">Signup Form</h2>
+                    <p class="text-center">It's quick and easy.</p>
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="name" name="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="email" id="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" id="password" name="password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" id="confirm" name="confirm" placeholder="Confirm password" required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control button" type="submit" name="signup" value="Signup">
+                        <div id="signup-success" class="alert alert-success mt-3 d-none">
+                            Signup successful! <a href="login-user.html">Go to Login</a>
+                        </div>
+                    </div>
+                    <div class="link login-link text-center">Already a member? <a href="login-user.html">Login here</a></div>
+                </form>
+            </div>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm").value;
+
+      if (password !== confirm) {
+        alert("❗ Passwords do not match.");
+        document.getElementById("password").value = "";
+        document.getElementById("confirm").value = "";
+        return;
+      }
+
+      // Save user data to localStorage
+      const userData = { name, email, password };
+      localStorage.setItem("wasteManagementUser", JSON.stringify(userData));
+
+      alert(`✅ Welcome ${name}! Your account is registered.`);
+
+      setTimeout(() => {
+        window.location.href = "login-user.html";
+      }, 1500);
+    }
+    </script>
+</body>
+</html>
